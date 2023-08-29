@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEETS_ID = "1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w"
-UPLOAD_FOLDER = '/Users/24RyanM/Desktop/Code/nisttech-code-grader/files'
+UPLOAD_FOLDER = 'tmp'
 ALLOWED_EXTENSIONS = {'py', 'c', 'cpp', 'java'}
 NUM_OF_PROBLEMS = 12
 
@@ -20,6 +20,9 @@ app.secret_key = 'Nisttech #1'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.debug = True
+
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 def update_spreadsheet(timestamp, email, name, problem, file, output):
     credentials = None
