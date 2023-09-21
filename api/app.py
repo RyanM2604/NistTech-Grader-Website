@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEETS_ID = "1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w"
-UPLOAD_FOLDER = 'tmp'
+UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = {'py', 'c', 'cpp', 'java'}
 NUM_OF_PROBLEMS = 12
 
