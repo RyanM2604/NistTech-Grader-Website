@@ -34,8 +34,9 @@ def update_spreadsheet(timestamp, email, name, problem, file, output):
         else:
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
             credentials = flow.run_local_server(port=8080)
-        with open("token.json", "w") as token:
-            token.write(credentials.to_json()) 
+        token = open("token.json", "w")
+        token.write(credentials.to_json()) 
+        token.close()
     
     try:
         service = build("sheets", "v4", credentials=credentials)

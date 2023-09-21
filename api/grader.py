@@ -75,19 +75,20 @@ def grade(n):
 
             output_data=result.stdout.decode().strip()  
             
-            with open(output_file) as f:
-                expected_output_data=f.read().strip()
+            f = open(output_file)
+            expected_output_data=f.read().strip()
+            f.close()
                 
-                # compare test case with result
-                if output_data==expected_output_data:
-                    print(f"\033[1m\033[92mTest case {i} PASSED ✓\033[0m")
-                    print(f"--> Output:\n{output_data}")
-                    print("--> Runtime:")
-                    print("{:.2f}s".format( runtime ))
-                else:
-                    print(f"\033[1m\033[91mTest case {i} FAILED ✗\033[0m")
-                    print(f"--> Expected:\n{expected_output_data}")
-                    print(f"--> Got:{output_data}")
+            # compare test case with result
+            if output_data==expected_output_data:
+                print(f"Test case {i} PASSED")
+                print(f"--> Output:\n{output_data}")
+                print("--> Runtime:")
+                print("{:.2f}s".format( runtime ))
+            else:
+                print(f"Test case {i} FAILED ✗")
+                print(f"--> Expected:\n{expected_output_data}")
+                print(f"--> Got:{output_data}")
     print("-----------------------------")
     
     # cleanup: remove the compiled solution if present
