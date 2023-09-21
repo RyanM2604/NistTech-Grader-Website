@@ -102,8 +102,9 @@ def results():
     email = request.args.get("email")
     code_path = request.args.get("code_path")
 
-    with open(code_path, "r") as code_file:
-        code_content = code_file.read()
+    fo = open(code_path, "r")
+    code_content = fo.read() 
+    fo.close()
     
     COMMAND = ["python3", "grader.py", problem_num, filename]
     
