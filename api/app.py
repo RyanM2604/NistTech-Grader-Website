@@ -114,6 +114,6 @@ def results():
     errors = result.stderr
     output = result.stdout
 
-    #update_spreadsheet(datetime.datetime.now(), email, name, problem_num, code_content, output)
+    update_spreadsheet(datetime.datetime.now(), email, name, problem_num, code_content, output)
 
     return render_template("results.html", errors=errors, output=output, problem_num=problem_num)
