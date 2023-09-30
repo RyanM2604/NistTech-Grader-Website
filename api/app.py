@@ -96,3 +96,8 @@ def results():
     update_spreadsheet(datetime.datetime.now(), email, name, problem_num, code_content, output)
 
     return render_template("results.html", errors=errors, output=output, problem_num=problem_num)
+
+@app.route("/lb")
+def leaderboard():
+    leaderboard = ["yo", "joe", "shmoe"]
+    return render_template("leaderboard.html", leaderboard=leaderboard)
