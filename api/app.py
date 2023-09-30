@@ -3,11 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 import subprocess
 import datetime
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+import gspread
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEETS_ID = "1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w"
@@ -21,43 +17,26 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.debug = True
 
+gc = gspread.service_account(filename='gsheet_credentials.json')
+
+sh = gc.open_by_key('1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w')
+worksheet = sh.sheet1
+
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
 def update_spreadsheet(timestamp, email, name, problem, file, output):
-    credentials = None
-    if os.path.exists("token.json"):
-        credentials = Credentials.from_authorized_user_file("token.json", SCOPES)
-    if not credentials or not credentials.valid:
-        if credentials and credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            credentials = flow.run_local_server(port=8080)
-        token = open("token.json", "w")
-        token.write(credentials.to_json()) 
-        token.close()
-    
     try:
-        service = build("sheets", "v4", credentials=credentials)
-        sheets = service.spreadsheets()
+        data = worksheet.get_all_records()
+        print(data)
+    except gspread.exceptions.APIError as e:
+        print(f"Error updating spreadsheet: {e}")
+    
+    timestamp_str = timestamp.isoformat()
 
-        # Convert timestamp to ISO 8601 string format
-        timestamp_str = timestamp.isoformat()
-
-        values = [
-            [timestamp_str, email, name, problem, file, output]
-        ]
-
-        body = {
-            "values": values
-        }
-
-        result = sheets.values().append(spreadsheetId=SPREADSHEETS_ID, range="Responses!A2:F10", valueInputOption="RAW", body=body).execute()
-        print("Spreadsheet updated:", result)
-
-    except HttpError as e:
-        print(e)
+    append_data = [timestamp_str, email, name, problem, file, output]
+    worksheet.append_row(append_data)
+    return
 
 
 def valid_file(filename):
