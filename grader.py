@@ -6,7 +6,7 @@ import hashlib
 import time
 from memory_profiler import profile
 
-# set for March 2023 comp.
+# set for March 2023 comp. MUST CHANGE
 PROBLEM_COUNT = 9
 
 # show usage if no solution file is provided
