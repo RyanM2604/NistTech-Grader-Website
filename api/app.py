@@ -4,6 +4,7 @@ import os
 import subprocess
 import datetime
 import gspread
+from dotenv import load_dotenv
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEETS_ID = "1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w"
@@ -11,13 +12,27 @@ UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = {'py', 'c', 'cpp', 'java'}
 NUM_OF_PROBLEMS = 12
 
+load_dotenv()
+
 app = Flask(__name__)
 app.secret_key = 'Nisttech #1'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.debug = True
 
-gc = gspread.service_account(filename='gsheet_credentials.json')
+gc = gspread.service_account_from_dict({
+    "type": os.environ.get("type"),
+    "project_id": os.environ.get("project_id"),
+    "private_key_id": os.environ.get("private_key_id"),
+    "private_key": os.environ.get("private_key"),
+    "client_email": os.environ.get("client_email"),
+    "client_id": os.environ.get("client_id"),
+    "auth_uri": os.environ.get("auth_uri"),
+    "token_uri": os.environ.get("token_uri"),
+    "auth_provider_x509_cert_url": os.environ.get("auth_provider_x509_cert_url"),
+    "client_x509_cert_url": os.environ.get("client_x509_cert_url"),
+    "universe_domain": os.environ.get("universe_domain")
+})
 
 sh = gc.open_by_key('1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w')
 worksheet = sh.sheet1
