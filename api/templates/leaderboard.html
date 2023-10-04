@@ -28,16 +28,20 @@
                 <tr>
                     <th scope="col">Placement</th>
                     <th scope="col">Username</th>
+                    <th scope="col">Total score</th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for i in range(leaderboard|length) %}
                         <tr>
                             <td>
-                                {{ i }}
+                                {{ i+1 }}
                             </td>
                             <td>
-                                {{ leaderboard[i] }}
+                                {{ leaderboard[i][0] }}
+                            </td>
+                            <td>
+                                {{ leaderboard[i][1] }}
                             </td>
                         </tr>
                     {% endfor %}

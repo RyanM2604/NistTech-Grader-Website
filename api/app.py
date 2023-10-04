@@ -112,7 +112,34 @@ def results():
 
     return render_template("results.html", errors=errors, output=output, problem_num=problem_num)
 
+def quicksort_leaderboard(arr):
+    length = len(arr)
+    if length <= 1:
+        return arr
+    else:
+        pivot = arr.pop()
+    
+    items_greater = []
+    items_lesser = []
+
+    for item in arr:
+        if item[1] > pivot[1]:
+            print(item)
+            items_greater.append(item)
+        else:
+            print(item)
+            items_lesser.append(item)
+
+    return quicksort_leaderboard(items_greater) + [pivot] + quicksort_leaderboard(items_lesser)
+
 @app.route("/lb")
 def leaderboard():
-    leaderboard = ["yo", "joe", "shmoe"]
+    leaderboard_sheet = sh.get_worksheet(1)
+    leaderboard = []
+
+    for i in range(5, 10):
+        leaderboard.append([leaderboard_sheet.row_values(i)[2], int(leaderboard_sheet.row_values(i)[12])])
+
+    leaderboard = quicksort_leaderboard(leaderboard)
+
     return render_template("leaderboard.html", leaderboard=leaderboard)
