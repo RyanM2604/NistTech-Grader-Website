@@ -7,7 +7,7 @@ import time
 from memory_profiler import profile
 
 # set for March 2023 comp. MUST CHANGE
-PROBLEM_COUNT = 9
+PROBLEM_COUNT = 10
 
 # show usage if no solution file is provided
 if len(sys.argv) < 3 or sys.argv[1] == '-h' or sys.argv[1] == '--help' or not sys.argv[1].isdigit() or int(sys.argv[1]) > PROBLEM_COUNT:

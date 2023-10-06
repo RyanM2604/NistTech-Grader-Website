@@ -1,1 +1,2 @@
-abcd
+24
+['abcd', 'abdc', 'acbd', 'acdb', 'adbc', 'adcb', 'bacd', 'badc', 'bcad', 'bcda’]
