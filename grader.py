@@ -5,6 +5,7 @@ from datetime import datetime
 import hashlib
 import time
 from memory_profiler import profile
+import psutil
 
 # set for March 2023 comp. MUST CHANGE
 PROBLEM_COUNT = 10
@@ -111,14 +112,31 @@ def grade(n):
         with open(input_file) as f_in:
             input_data = f_in.read()
 
+            # # run the solution and capture its output
+            # start_time = time.time()
+            # result = subprocess.run(
+            #     run_cmd, input=input_data.encode(), stdout=subprocess.PIPE
+            # )
+            # end_time = time.time()
+            # # can put constraint on runtime if needed (ie. not exceeding 1 second)
+            # runtime = end_time - start_time  
+
             # run the solution and capture its output
             start_time = time.time()
-            result = subprocess.run(
-                run_cmd, input=input_data.encode(), stdout=subprocess.PIPE
-            )
+            process = subprocess.Popen(run_cmd, stdout=subprocess.PIPE)
+            ps = psutil.Process(process.pid)
+            output, errors = process.communicate(input=input_data.encode())
+
+            # Wait for the process to finish and get the memory info
+            process.wait()
+            mem_info = ps.memory_info()
             end_time = time.time()
+
             # can put constraint on runtime if needed (ie. not exceeding 1 second)
             runtime = end_time - start_time  
+
+            # Memory usage in bytes
+            memory_usage = mem_info.rss
 
             if result.returncode != 0:
                 print(f"✗ Solution crashed on test case {i} ✗")
