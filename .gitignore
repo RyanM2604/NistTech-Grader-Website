@@ -1,2 +1,4 @@
-.vercel
-gsheet_credentials_new.json
+/node_modules/
+/public/build/
+
+.DS_Store
