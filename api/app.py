@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEETS_ID = "1sAMe_4KNaX8qzPM7qvoDIBuw4d_Ul8xrpHNXBw51c7w"
-UPLOAD_FOLDER = '/tmp'
+UPLOAD_FOLDER = '/var/task'
 ALLOWED_EXTENSIONS = {'py', 'c', 'cpp', 'java'}
 NUM_OF_PROBLEMS = 12
 
@@ -92,7 +92,7 @@ def index():
         
         if code and valid_file(code.filename):
             filename = secure_filename(code.filename)
-            code_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            code_path = os.path.join(app.config['UPLOAD_FOLDER'], problem_num, filename)
             code.save(code_path)
             return redirect("/results?problem_num=" + problem_num + "&filename=" + filename + "&name=" + name + "&email=" + email + "&code_path=" + code_path)
         else:
