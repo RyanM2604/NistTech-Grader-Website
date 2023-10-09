@@ -74,7 +74,9 @@ def index():
             flash('Choose a number')
             return redirect("/")
         
-        if problem_num > NUM_OF_PROBLEMS or problem_num < 0:
+        problem_num_int = int(problem_num)
+
+        if problem_num_int > NUM_OF_PROBLEMS or problem_num_int < 0:
             flash("Invalid number")
             return redirect("/")
         
