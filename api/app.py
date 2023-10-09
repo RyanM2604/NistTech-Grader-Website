@@ -124,10 +124,8 @@ def quicksort_leaderboard(arr):
 
     for item in arr:
         if item[1] > pivot[1]:
-            print(item)
             items_greater.append(item)
         else:
-            print(item)
             items_lesser.append(item)
 
     return quicksort_leaderboard(items_greater) + [pivot] + quicksort_leaderboard(items_lesser)
