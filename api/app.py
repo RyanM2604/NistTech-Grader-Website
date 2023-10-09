@@ -70,6 +70,14 @@ def index():
             flash('No problem selected')
             return redirect("/")
         
+        if problem_num.isdigit() == False:
+            flash('Choose a number')
+            return redirect("/")
+        
+        if problem_num > NUM_OF_PROBLEMS or problem_num < 0:
+            flash("Invalid number")
+            return redirect("/")
+        
         if 'code' not in request.files:
             flash('No file part')
             return redirect("/")
