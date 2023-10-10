@@ -75,11 +75,14 @@ const api = async (req, res) => {
             // decode submissionData.stdout from base64
             const decodedOutput = Buffer.from(submissionData.stdout, 'base64').toString();
 
+            let status;
             if (decodedOutput.trim() === expectedOutput.trim()) {
-                results.push({ testCaseId: testCase.id, status: 'PASSED' });
+                status = 'PASSED';
             } else {
-                results.push({ testCaseId: testCase.id, status: 'FAILED', received: decodedOutput.trim() });
+                status = 'FAILED';
             }
+
+            results.push({ testCaseId: testCase.id, status: status, received: decodedOutput.trim(), expected: expectedOutput.trim(), memory: submissionData.memory, time: submissionData.time, error: submissionData.stderr});
 
         } catch (error) {
             return res.status(500).json({ error: 'Failed to create submission to Judge0.' });
