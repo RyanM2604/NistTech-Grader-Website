@@ -11,7 +11,7 @@ const languages = {
     'c': 75, // Clang 7.0.1
     'cpp': 76, // Clang 7.0.1
     'java': 91, // JDK 17.0.6
-    'javascript': 93, // Node.js 18.15.0
+    'js': 93, // Node.js 18.15.0
 }
 
 const api = async (req, res) => {
