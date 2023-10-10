@@ -80,29 +80,6 @@ const api = async (req, res) => {
         } catch (error) {
             return res.status(500).json({ error: 'Failed to create submission to Judge0.' });
         }
-
-        // // fetch the result using the Submission Token
-        // try {
-        //     const resultResponse = await fetch(`https://judge0-ce.p.rapidapi.com/submissions/${submissionToken}?base64_encoded=true`, {
-        //         method: 'GET',
-        //         headers: {
-        //             'X-RapidAPI-Key': rapidapiKey,
-        //             'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-        //         }
-        //     });
-
-        //     const resultData = await resultResponse.json();
-        //     console.log(resultData);
-
-        //     if (resultData.stdout.trim() === expectedOutput.trim()) {
-        //         results.push({ testCaseId: testCase.id, status: 'PASSED' });
-        //     } else {
-        //         results.push({ testCaseId: testCase.id, status: 'FAILED', received: resultData.stdout.trim() });
-        //     }
-
-        // } catch (error) {
-        //     return res.status(500).json({ error: 'Failed to fetch result from Judge0.' });
-        // }
     }
     return res.json({ results });   
 };
