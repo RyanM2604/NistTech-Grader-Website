@@ -7,7 +7,11 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const languages = {
-    'python': 92
+    'python': 92, // Python 3.11.2
+    'c': 75, // Clang 7.0.1
+    'cpp': 76, // Clang 7.0.1
+    'java': 91, // JDK 17.0.6
+    'javascript': 93, // Node.js 18.15.0
 }
 
 const api = async (req, res) => {
