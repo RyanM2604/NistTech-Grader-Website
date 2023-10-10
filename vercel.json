@@ -1,6 +1,6 @@
 {
   "env": {
-    "RAPIDAPI_KEY": "@RAPIDAPI_KEY",
-    "SUPABASE_KEY": "@SUPABASE_KEY"
+    "RAPIDAPI_KEY": "@rapidapi_key",
+    "SUPABASE_KEY": "@supabase_key"
   }
 }
